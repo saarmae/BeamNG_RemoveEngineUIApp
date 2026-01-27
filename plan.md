@@ -1,14 +1,14 @@
 # BeamNG Remove Engine UI App — Implementation Plan
 
 ## 1. Repository and Tooling Prep
-- [ ] Keep `BrebRandomVehConfig.zip` ignored locally (`.gitignore` already handles the future mod zip).
+- [ ] Keep `BrebRandomVehConfig.zip` ignored locally (reference-only asset).
 - [ ] Create a clean workspace structure mirroring the reference mod (`ui`, `lua`, `mod_info`, `Licenses`).
-- [ ] Add scaffolding scripts (optional) for packaging into `BrebRemoveEngine.zip`.
+- [ ] Add scaffolding scripts (optional) for packaging into `RemoveEngine.zip`.
 
-## 2. UI Module (`ui/modules/apps/BrebRemoveEngine`)
+## 2. UI Module (`ui/modules/apps/RemoveEngine`)
 - [ ] Define `app.json` per the README spec (dom element, directive name, default dimensions, description, preview image).
 - [ ] Build `app.js` directive:
-  - Register `brebRemoveEngine` on `beamng.apps`.
+  - Register `removeEngine` on `beamng.apps`.
   - Initialize scope state (`vehicleId`, `engineSlot`, `engineState`, `busy`, `error`).
   - Subscribe to vehicle/stream updates to refresh state when cars change.
   - Implement `refreshState()` that calls the Lua helper for slot info.
@@ -18,7 +18,7 @@
 - [ ] Add `app.png` preview asset (320×180) with consistent branding.
 - [ ] Optionally extract repeated styles to a `styles.css` referenced by the template for easier maintenance.
 
-## 3. Lua Extension (`lua/ge/extensions/core_BREngineRemoval.lua`)
+## 3. Lua Extension (`lua/ge/extensions/core_RemoveEngine.lua`)
 - [ ] Implement module registration boilerplate (return table with exposed functions, add to `extensions` namespace).
 - [ ] Implement `getEngineSlotInfo()`:
   - Fetch the player vehicle (`be:getPlayerVehicle(0)`), guard against nil.
@@ -38,7 +38,7 @@
 ## 5. Packaging & Metadata
 - [ ] Populate `mod_info/info.json` with mod metadata (name, version, author, description).
 - [ ] Include any license files for reused art assets under `Licenses/`.
-- [ ] Zip the directories into `BrebRemoveEngine.zip` once functionality is verified (zip remains untracked per `.gitignore`).
+- [ ] Zip the directories into `RemoveEngine.zip` once functionality is verified (zip remains untracked per `.gitignore`).
 
 ## 6. Testing Checklist
 - [ ] Add the app in BeamNG’s UI and verify preview + description.
@@ -51,4 +51,4 @@
 ## 7. Release Steps
 - [ ] Update `readme.MD` with any deviations from the spec.
 - [ ] Commit UI + Lua source, preview image references, and metadata.
-- [ ] Tag a release or upload `BrebRemoveEngine.zip` to BeamNG repo once testing passes.
+- [ ] Tag a release or upload `RemoveEngine.zip` to BeamNG repo once testing passes.
