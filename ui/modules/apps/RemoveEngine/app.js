@@ -4,25 +4,10 @@
   angular.module('beamng.apps')
     .directive('removeEngine', ['$interval', function($interval) {
       return {
-        template:
-          '<div class="remove-engine-app" layout="column" layout-align="start stretch" style="width:100%;height:100%;padding:12px;box-sizing:border-box;font-family:\'Space Grotesk\',\'Segoe UI\',sans-serif;">' +
-            '<div layout="row" layout-align="space-between center" style="gap:12px;flex-wrap:wrap;">' +
-              '<div style="flex:1 1 200px;min-width:160px;">' +
-                '<div style="font-size:16px;font-weight:600;color:#f2f2f2;letter-spacing:0.5px;">Remove Engine</div>' +
-                '<div style="font-size:13px;color:#c8d1d9;margin-top:4px;">{{state.vehicleName}}</div>' +
-                '<div style="font-size:12px;color:#8fa2b5;margin-top:6px;">Status: <span style="color:#f6f6f6;">{{state.statusText}}</span></div>' +
-                '<div style="font-size:12px;color:#8fa2b5;margin-top:2px;">Slot: <span style="color:#f6f6f6;">{{state.slotLabel || "Unavailable"}}</span></div>' +
-              '</div>' +
-              '<md-button class="md-raised" style="min-width:190px;height:48px;background:{{state.buttonColor}};color:#0e1116;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;"' +
-                ' ng-click="setEngineEmpty()" ng-disabled="!state.canRemove || state.busy" md-no-ink>' +
-                '{{state.buttonLabel}}' +
-              '</md-button>' +
-            '</div>' +
-            '<div ng-if="state.error" style="margin-top:10px;padding:6px 10px;border-radius:4px;background:#471b1d;color:#ffb4b4;font-size:12px;">{{state.error}}</div>' +
-            '<div ng-if="!state.error && state.message" style="margin-top:10px;padding:6px 10px;border-radius:4px;background:#1f3b2b;color:#b7f0c2;font-size:12px;">{{state.message}}</div>' +
-          '</div>',
+        templateUrl: '/ui/modules/apps/RemoveEngine/app.html',
         replace: true,
         restrict: 'EA',
+        scope: true,
         link: function(scope) {
           scope.state = {
             vehicleId: null,
