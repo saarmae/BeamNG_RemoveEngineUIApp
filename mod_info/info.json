@@ -1,0 +1,10 @@
+{
+  "name": "Remove Engine UI App",
+  "description": "Simple UI widget that sets the active vehicle's engine slot to Empty with a single button.",
+  "author": "saarmae",
+  "version": "1.0.0",
+  "type": "ui",
+  "releaseDate": "2026-01-27",
+  "preview": "ui/modules/apps/RemoveEngine/app.png",
+  "dependencies": []
+}
