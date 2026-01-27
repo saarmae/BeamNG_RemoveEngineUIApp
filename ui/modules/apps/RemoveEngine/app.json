@@ -1,0 +1,17 @@
+{
+  "domElement": "<remove-engine></remove-engine>",
+  "name": "Remove Engine",
+  "description": "Swap the active vehicle's engine for the Empty part with one click.",
+  "css": {
+    "left": "0px",
+    "top": "0px",
+    "width": "460px",
+    "height": "130px",
+    "min-width": "260px",
+    "min-height": "90px"
+  },
+  "author": "saarmae",
+  "version": "1.0.0",
+  "preserveAspectRatio": false,
+  "directive": "removeEngine"
+}

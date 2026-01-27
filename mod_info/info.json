@@ -1,0 +1,7 @@
+{
+  "name": "Remove Engine",
+  "author": "saarmae",
+  "version": "1.0.0",
+  "description": "BeamNG UI app that removes the current vehicle's engine with a single button.",
+  "dependencies": []
+}
