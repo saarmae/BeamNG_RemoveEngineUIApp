@@ -1,17 +1,17 @@
 # BeamNG Remove Engine UI App — Specification
 
 ## 1. Overview
-- **Objective:** Ship a BeamNG UI app that lets a player remove the currently spawned vehicle’s engine with one click. The app inspects the active vehicle, shows whether its engine slot already uses the `empty` part, and triggers the swap when requested.
+- **Objective:** Ship a BeamNG UI app that lets a player remove the currently spawned vehicle’s engine with one click. The app inspects the active vehicle, shows whether its engine slot already uses the `empty`/user-empty state, and triggers the swap when requested—even on vehicles that never defined a literal `empty` part.
 - **Audience:** BeamNG players who want a rapid way to disable engines (e.g., for towing scenarios, cinematic shots, or challenge setups) without navigating the parts configurator.
-- **Reference Material:** The bundled `BrebRandomVehConfig` UI app demonstrates how to package AngularJS-based BeamNG UI modules and send Lua commands via `bngApi.engineLua`. Match its project layout while tailoring functionality to engine removal.
+- **Reference Material:** The bundled sample UI app demonstrates how to package AngularJS-based BeamNG UI modules and send Lua commands via `bngApi.engineLua`. Match its project layout while tailoring functionality to engine removal.
 
 ## 2. Functional Requirements
 1. Display a compact widget (≈450 × 120 px default footprint) named “Remove Engine”.
 2. Show current vehicle metadata: vehicle name, engine slot label, and engine status (`Installed`, `Already Empty`, or `Slot Missing`).
 3. Provide a primary button labeled `Set Engine To Empty`.
-   - Enabled only when the vehicle has a compatible engine slot and that slot is not already using the empty part.
+   - Enabled only when the vehicle has a compatible engine slot and that slot is not already using the empty/user-empty state.
    - Disabled state text changes to `No Engine Slot` or `Already Empty` as appropriate.
-4. On click, issue a Lua command that swaps the engine slot’s part to the empty option, then refreshes the UI state once the operation completes.
+4. On click, issue a Lua command that sets the engine slot to BeamNG’s user-empty state (empty string) so the result sticks even if no literal `empty` part exists, then refresh the UI state once the operation completes.
 5. Handle vehicle changes in real time (when the player swaps cars, respawns, or resets) by re-evaluating the engine slot.
 6. Surface errors (e.g., Lua failure, missing slot) as inline toast text under the button; auto-hide after 5 s.
 
@@ -81,8 +81,8 @@ Licenses/*          // Attributions if reusing assets
   3. Determine the engine slot name (usually `"mainEngine"`, but fall back to searching for slots with `type == "engine"`).
    4. Provide `getEngineSlotInfo()` returning structured data for the UI.
    5. Provide `setEngineEmpty()` that:
-     - Validates a compatible slot exists and already knows the `empty` option (BeamNG exposes an `"empty"` part for engine slots).
-      - Uses `extensions.core_vehicle_manager.replacePart(vehicleId, slotName, "empty")` (or the correct part id) and reapplies the configuration.
+     - Validates a compatible slot exists and supports BeamNG’s user-empty (`''`) assignment even if no explicit `empty` part was authored.
+      - Uses `extensions.core_vehicle_partmgmt.setConfig({ parts = { [slotName] = '' } }, true)` so the slot system treats it as a user request to leave the slot blank, then reapplies the configuration.
      - Returns success/failure with descriptive messages for UI display.
 - Include graceful fallbacks when the empty part is unavailable (some mods may not expose it) and send descriptive error strings.
 
@@ -107,7 +107,16 @@ Licenses/*          // Attributions if reusing assets
   ```
 - Provide a 320×180 `app.png` preview registered in `app.json` so the app shows correctly in the selector.
 
-## 11. Testing Checklist
+## 11. Build & Installation Workflow
+1. From the repo root, rebuild the distributable after making code or asset changes:
+   ```powershell
+   py -3 -m zipfile -c RemoveEngine.zip lua ui mod_info
+   ```
+2. Copy the refreshed `RemoveEngine.zip` into BeamNG’s user mods folder, typically `C:\Users\<you>\AppData\Local\BeamNG.drive\current\mods`.
+3. Launch BeamNG, open the UI Apps menu, and ensure the updated “Remove Engine” tile loads (reload the UI layout if needed).
+4. Add the widget to a dashboard, spawn a few vehicles, and verify the status text/button states match expectations before distributing the zip elsewhere.
+
+## 12. Testing Checklist
 - [ ] App appears in the in-game UI app selector with correct name and preview.
 - [ ] Button enables/disables as vehicles with/without engines are spawned.
 - [ ] Pressing the button installs the Empty engine part and the vehicle loses power.
@@ -115,7 +124,7 @@ Licenses/*          // Attributions if reusing assets
 - [ ] Errors (e.g., intentionally remove empty part definition) display friendly text and do not spam the console.
 - [ ] No Lua stack traces or Angular digest errors appear in the BeamNG console.
 
-## 12. Future Enhancements (Optional)
+## 13. Future Enhancements (Optional)
 - Add hotkeys to trigger engine removal without opening the UI app.
 - Allow selecting other removable powertrain components (transmission, driveshaft) via a dropdown.
 - Provide an auto-remove toggle that triggers whenever a vehicle spawns.

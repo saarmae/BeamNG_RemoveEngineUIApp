@@ -1,7 +1,7 @@
 # BeamNG Remove Engine UI App — Implementation Plan
 
 ## 1. Repository and Tooling Prep
-- [ ] Keep `BrebRandomVehConfig.zip` ignored locally (reference-only asset).
+- [ ] Keep the bundled reference UI app zip ignored locally (reference-only asset).
 - [ ] Create a clean workspace structure mirroring the reference mod (`ui`, `lua`, `mod_info`, `Licenses`).
 - [ ] Add scaffolding scripts (optional) for packaging into `RemoveEngine.zip`.
 
