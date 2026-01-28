@@ -1,9 +1,9 @@
 {
-  "name": "Remove Engine UI App",
-  "title": "Remove Engine UI App",
-  "tagid": "REMOVEENGINE",
-  "tag_line": "Strip the active car's engine with one tap.",
-  "description": "Dashboard UI app that swaps the active vehicle's engine slot to Empty in a single click.",
+  "name": "Remove Engine",
+  "title": "Remove Engine",
+  "tagid": "remove-engine-ui-app",
+  "tag_line": "Semi-transparent button that empties engines instantly.",
+  "description": "Minimal BeamNG UI tile that instantly swaps the focused vehicle's engine slot to BeamNG's Empty state so you can stay in the scenario flow.",
   "author": "Khodar",
   "username": "Khodar",
   "user_id": 0,
@@ -36,6 +36,6 @@
       "thumb_filename": "thumbs/remove-engine-preview.png"
     }
   ],
-  "message": "[CENTER][SIZE=5][B]Pull the engine without opening the parts configurator.[/B][/SIZE][/CENTER]\n\n[FONT=Verdana][SIZE=4]Remove Engine adds a focused UI tile that inspects the active vehicle, shows you which engine slot is installed, and removes it by installing BeamNG's built-in Empty state.[/SIZE][/FONT]\n\n[CENTER][U]Highlights[/U][/CENTER]\n[LIST]\n[*]One-tap button to install the Empty part on the current car's engine slot\n[*]Works with Automation cars and modded vehicles because it relies on user-empty states\n[/LIST]\n\n[FONT=Verdana]Perfect for recovery/towing scenarios, cinematic shoots, soapbox or downhill challenge runs, and any scenario where you need to disable drivetrains instantly.[/FONT]",
+  "message": "[CENTER][SIZE=5][B]Skip the parts menu. Stay on the hill.[/B][/SIZE][/CENTER]\n\n[FONT=Verdana][SIZE=4]Remove Engine replaces the usual parts-configurator detour with a single frosted CTA. Tap it and the focused vehicle's engine slot is immediately set to BeamNG's Empty state—even on Automation cars and mods that never shipped an explicit empty part.[/SIZE][/FONT]\n\n[CENTER][U]Highlights[/U][/CENTER]\n[LIST]\n[*]Always-on dashboard button that reflects when an engine can be removed\n[*]Compatible with stock, Automation, and modded vehicles thanks to user-empty support\n[*]Perfect for downhill soapbox runs, towing scenarios, cinematic shoots, and challenge retries\n[/LIST]\n\n[FONT=Verdana]Zip includes both the AngularJS UI app and the Lua helper (`extensions.core_RemoveEngine`).[/FONT]",
   "dependencies": []
 }

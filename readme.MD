@@ -6,6 +6,8 @@
 - **Primary Use Case:** Supplement soapbox, downhill, and other BeamNG challenge mods that expect you to strip engines before a run so you can stay in the flow instead of diving into the parts configurator.
 - **Reference Material:** The bundled sample UI app demonstrates how to package AngularJS-based BeamNG UI modules and send Lua commands via `bngApi.engineLua`. Match its project layout while tailoring functionality to engine removal.
 
+BeamNG normally forces you through the Parts Configurator (or a trip back to the garage) whenever an event requires an empty engine slot. That workflow kills momentum, especially during downhill challenge retries or cinematic shoots where you constantly swap vehicles. Remove Engine exists to collapse that friction into a single always-visible CTA so you stay trackside and avoid rummaging through part trees between runs.
+
 ## 2. Functional Requirements
 1. Display a compact widget (≈450 × 90 px default footprint) named “Remove Engine”.
 2. Render a single primary button labeled `Set Engine To Empty` that fills the widget and mirrors the engine state through its label and enablement.
