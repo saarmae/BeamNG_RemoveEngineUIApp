@@ -1,29 +1,9 @@
-<div class="remove-engine-app bngApp" layout="column" layout-align="start stretch">
-  <div class="remove-engine-row" layout="row" layout-align="space-between center" layout-wrap>
-    <div class="remove-engine-copy">
-      <div class="remove-engine-title">Remove Engine</div>
-      <div class="remove-engine-meta">{{state.vehicleName}}</div>
-      <div class="remove-engine-status">
-        Status: <span>{{state.statusText}}</span>
-      </div>
-      <div class="remove-engine-status">
-        Slot: <span>{{state.slotLabel || 'Unavailable'}}</span>
-      </div>
-    </div>
-
-    <md-button class="remove-engine-cta md-raised"
-               ng-style="{'background-color': state.buttonColor}"
-               md-no-ink
-               ng-click="setEngineEmpty()"
-               ng-disabled="!state.canRemove || state.busy">
-      {{state.buttonLabel}}
-    </md-button>
-  </div>
-
-  <div class="remove-engine-flash error" ng-if="state.error">
-    {{state.error}}
-  </div>
-  <div class="remove-engine-flash success" ng-if="!state.error && state.message">
-    {{state.message}}
-  </div>
+<div class="remove-engine-app bngApp" layout="column" layout-align="center stretch">
+  <md-button class="remove-engine-cta md-raised"
+             ng-style="{'background-color': state.buttonColor}"
+             md-no-ink
+             ng-click="setEngineEmpty()"
+             ng-disabled="!state.canRemove || state.busy">
+    {{state.buttonLabel}}
+  </md-button>
 </div>

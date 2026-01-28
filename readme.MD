@@ -1,20 +1,18 @@
 # BeamNG Remove Engine UI App — Specification
 
 ## 1. Overview
-- **Objective:** Ship a BeamNG UI app that lets a player remove the currently spawned vehicle’s engine with one click. The app inspects the active vehicle, shows whether its engine slot already uses the `empty`/user-empty state, and triggers the swap when requested—even on vehicles that never defined a literal `empty` part.
+- **Objective:** Ship a BeamNG UI app that lets a player remove the currently spawned vehicle’s engine with one click. The app now focuses on a single semi-transparent button that reflects engine state and triggers the Empty swap—even on vehicles that never defined a literal `empty` part.
 - **Audience:** BeamNG players who want a rapid way to disable engines (e.g., for towing scenarios, cinematic shots, or challenge setups) without navigating the parts configurator.
 - **Primary Use Case:** Supplement soapbox, downhill, and other BeamNG challenge mods that expect you to strip engines before a run so you can stay in the flow instead of diving into the parts configurator.
 - **Reference Material:** The bundled sample UI app demonstrates how to package AngularJS-based BeamNG UI modules and send Lua commands via `bngApi.engineLua`. Match its project layout while tailoring functionality to engine removal.
 
 ## 2. Functional Requirements
-1. Display a compact widget (≈450 × 120 px default footprint) named “Remove Engine”.
-2. Show current vehicle metadata: vehicle name, engine slot label, and engine status (`Installed`, `Already Empty`, or `Slot Missing`).
-3. Provide a primary button labeled `Set Engine To Empty`.
-   - Enabled only when the vehicle has a compatible engine slot and that slot is not already using the empty/user-empty state.
-   - Disabled state text changes to `No Engine Slot` or `Already Empty` as appropriate.
+1. Display a compact widget (≈450 × 90 px default footprint) named “Remove Engine”.
+2. Render a single primary button labeled `Set Engine To Empty` that fills the widget and mirrors the engine state through its label and enablement.
+3. Enabled state appears only when the active vehicle exposes a compatible engine slot that is not already empty. Disabled state text flips to `Engine Already Empty` or `Unavailable` based on the scenario.
 4. On click, issue a Lua command that sets the engine slot to BeamNG’s user-empty state (empty string) so the result sticks even if no literal `empty` part exists, then refresh the UI state once the operation completes.
 5. Handle vehicle changes in real time (when the player swaps cars, respawns, or resets) by re-evaluating the engine slot.
-6. Surface errors (e.g., Lua failure, missing slot) as inline toast text under the button; auto-hide after 5 s.
+6. Provide inline feedback directly via the button text (e.g., `Working...`, `Engine Already Empty`) instead of additional status panels, while still logging failures for diagnostics.
 
 ## 3. Non-Goals
 - No bulk operations across multiple vehicles.
@@ -22,12 +20,12 @@
 - No direct modification of non-engine powertrain parts.
 
 ## 4. UI/UX Specification
-- **Layout:** Horizontal stack—left column for status text, right column for the action button. Use the same Angular Material components as the reference mod for consistency with BeamNG’s UI system.
+- **Layout:** Full-bleed Angular Material `md-button` centered in the widget. No auxiliary copy; the button’s label communicates all states so the control can shrink without clipping.
 - **Visual cues:**
-  - Neutral gray background (`#AAAABBBB`) for idle button.
-  - Success flash to green (`#7ED68CBB`) when the engine is removed.
-  - Error flash to red (`#FF6B6BBB`).
-- **Accessibility:** Provide tooltip text (“Remove the current engine by installing the Empty part”). Ensure button text remains legible at the minimum widget width.
+  - Semi-transparent mint background (`rgba(126, 214, 140, 0.55)`) with a frosted border for the enabled state.
+  - Disabled state drops to `rgba(90, 98, 107, 0.45)` and updates the label (`Engine Already Empty`, `Unavailable`).
+  - Busy state uses `rgba(90, 118, 147, 0.75)` plus the `Working...` label.
+- **Accessibility:** High-contrast type and large uppercase lettering ensure readability; there is no tooltip because the button text remains self-explanatory even at reduced sizes.
 
 ## 5. File/Module Structure
 ```
@@ -95,7 +93,7 @@ Licenses/*          // Attributions if reusing assets
 - **Vehicle changed mid-operation:** Cancel the in-flight promise, refresh state for the new vehicle.
 
 ## 10. Packaging & Distribution
-- Follow the same zip layout as the reference mod: top-level folders `ui`, `lua`, `mod_info`, `Licenses`.
+- Follow the same zip layout as the reference mod: top-level folders `ui`, `lua`, `mod_info`, `Licenses`, zipped with 7-Zip (or equivalent) so BeamNG recognizes the archive immediately.
 - `mod_info/info.json` should include:
   ```json
   {
@@ -109,13 +107,13 @@ Licenses/*          // Attributions if reusing assets
 - Provide a 320×180 `app.png` preview registered in `app.json` so the app shows correctly in the selector.
 
 ## 11. Build & Installation Workflow
-1. From the repo root, rebuild the distributable after making code or asset changes:
+1. From the repo root, rebuild the distributable after making code or asset changes with 7-Zip:
    ```powershell
-   py -3 -m zipfile -c RemoveEngine.zip lua ui mod_info
+   "C:\Program Files\7-Zip\7z.exe" a -tzip RemoveEngine.zip lua mod_info ui
    ```
 2. Copy the refreshed `RemoveEngine.zip` into BeamNG’s user mods folder, typically `C:\Users\<you>\AppData\Local\BeamNG.drive\current\mods`.
 3. Launch BeamNG, open the UI Apps menu, and ensure the updated “Remove Engine” tile loads (reload the UI layout if needed).
-4. Add the widget to a dashboard, spawn a few vehicles, and verify the status text/button states match expectations before distributing the zip elsewhere.
+4. Add the widget to a dashboard, spawn a few vehicles, and verify the button state flips appropriately before distributing the zip elsewhere.
 
 ## 12. Testing Checklist
 - [ ] App appears in the in-game UI app selector with correct name and preview.

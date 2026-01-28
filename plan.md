@@ -1,11 +1,12 @@
 # BeamNG Remove Engine UI App — Implementation Plan
 
+> Update (2026-01-28): Final UI presents only a single semi-transparent CTA button. Keep all state/logic but drop the descriptive copy/flash elements referenced below when implementing.
+
 ## 1. Repository and Tooling Prep
 - [ ] Keep the bundled reference UI app zip ignored locally (reference-only asset).
 - [ ] Create a clean workspace structure mirroring the reference mod (`ui`, `lua`, `mod_info`, `Licenses`).
 - [ ] Add scaffolding scripts (optional) for packaging into `RemoveEngine.zip`.
 
-## 2. UI Module (`ui/modules/apps/RemoveEngine`)
 - [ ] Define `app.json` per the README spec (dom element, directive name, default dimensions, description, preview image).
 - [ ] Build `app.js` directive:
   - Register `removeEngine` on `beamng.apps`.
@@ -14,7 +15,7 @@
   - Implement `refreshState()` that calls the Lua helper for slot info.
   - Implement CTA handler (`setEngineEmpty()`) that dispatches the Lua `setEngineEmpty` command and handles promise resolution and error states.
   - Handle cleanup with `$destroy` and stream removal.
-- [ ] Create HTML template (inline within directive or external) containing status text, tooltip, and action button with proper enable/disable cues.
+- [ ] Create HTML template (inline within directive or external) containing only the CTA button that fills the widget while reflecting busy/disabled states.
 - [ ] Add `app.png` preview asset (320×180) with consistent branding.
 - [ ] Optionally extract repeated styles to a `styles.css` referenced by the template for easier maintenance.
 
@@ -38,7 +39,7 @@
 ## 5. Packaging & Metadata
 - [ ] Populate `mod_info/info.json` with mod metadata (name, version, author, description).
 - [ ] Include any license files for reused art assets under `Licenses/`.
-- [ ] Zip the directories into `RemoveEngine.zip` once functionality is verified (zip remains untracked per `.gitignore`).
+- [ ] Zip the directories into `RemoveEngine.zip` via 7-Zip (`"C:\Program Files\7-Zip\7z.exe" a -tzip RemoveEngine.zip lua mod_info ui`) once functionality is verified (zip remains untracked per `.gitignore`).
 
 ## 6. Testing Checklist
 - [ ] Add the app in BeamNG’s UI and verify preview + description.

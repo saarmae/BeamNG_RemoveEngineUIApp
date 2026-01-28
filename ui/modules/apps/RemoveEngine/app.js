@@ -28,7 +28,7 @@
             slotLabel: null,
             statusText: 'Spawn a vehicle to continue',
             buttonLabel: 'Set Engine To Empty',
-            buttonColor: '#b5c9d6',
+            buttonColor: 'rgba(90, 98, 107, 0.45)',
             canRemove: false,
             isEmpty: true,
             busy: false,
@@ -150,14 +150,14 @@
           function applyButtonState() {
             if (scope.state.busy) {
               scope.state.buttonLabel = 'Working...';
-              scope.state.buttonColor = '#5a7693';
+              scope.state.buttonColor = 'rgba(90, 118, 147, 0.75)';
               return;
             }
             if (!scope.state.canRemove) {
-              scope.state.buttonColor = '#5a626b';
-              scope.state.buttonLabel = scope.state.isEmpty ? 'Already Empty' : 'Unavailable';
+              scope.state.buttonColor = 'rgba(90, 98, 107, 0.45)';
+              scope.state.buttonLabel = scope.state.isEmpty ? 'Engine Already Empty' : 'Unavailable';
             } else {
-              scope.state.buttonColor = '#7ed68c';
+              scope.state.buttonColor = 'rgba(126, 214, 140, 0.55)';
               scope.state.buttonLabel = 'Set Engine To Empty';
             }
           }
