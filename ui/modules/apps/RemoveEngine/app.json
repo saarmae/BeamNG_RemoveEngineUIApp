@@ -10,7 +10,7 @@
     "min-width": "260px",
     "min-height": "90px"
   },
-  "author": "saarmae",
+  "author": "Khodar",
   "version": "1.0.0",
   "preserveAspectRatio": false,
   "directive": "removeEngine"

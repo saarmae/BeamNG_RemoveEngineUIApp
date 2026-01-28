@@ -3,6 +3,7 @@
 ## 1. Overview
 - **Objective:** Ship a BeamNG UI app that lets a player remove the currently spawned vehicle’s engine with one click. The app inspects the active vehicle, shows whether its engine slot already uses the `empty`/user-empty state, and triggers the swap when requested—even on vehicles that never defined a literal `empty` part.
 - **Audience:** BeamNG players who want a rapid way to disable engines (e.g., for towing scenarios, cinematic shots, or challenge setups) without navigating the parts configurator.
+- **Primary Use Case:** Supplement soapbox, downhill, and other BeamNG challenge mods that expect you to strip engines before a run so you can stay in the flow instead of diving into the parts configurator.
 - **Reference Material:** The bundled sample UI app demonstrates how to package AngularJS-based BeamNG UI modules and send Lua commands via `bngApi.engineLua`. Match its project layout while tailoring functionality to engine removal.
 
 ## 2. Functional Requirements
@@ -99,9 +100,9 @@ Licenses/*          // Attributions if reusing assets
   ```json
   {
     "name": "Remove Engine",
-    "author": "saarmae",
+    "author": "Khodar",
     "version": "1.0.0",
-    "description": "Simple UI button that swaps the active engine to Empty.",
+    "description": "Dashboard UI button that swaps the active engine to Empty for soapbox and downhill challenges.",
     "dependencies": []
   }
   ```
